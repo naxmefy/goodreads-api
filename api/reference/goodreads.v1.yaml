@@ -1,0 +1,72 @@
+openapi: 3.0.0
+info:
+  title: goodreads
+  version: '1.0'
+  contact:
+    url: 'https://www.goodreads.com/about/contact_us'
+    name: Goodreads
+    email: info@goodreads.com
+  termsOfService: 'https://www.goodreads.com/api/terms'
+  description: 'More infos at https://www.goodreads.com/api'
+servers:
+  - url: 'https://www.goodreads.com'
+    description: API_URL
+paths:
+  /api/auth_user:
+    get:
+      summary: auth.user
+      tags:
+        - auth
+      responses: {}
+      operationId: get-auth_user
+      description: |-
+        # Get id of user who authorized OAuth
+
+        Get an xml response with the Goodreads user_id for the user who authorized access using OAuth. You'll need to register your app (required).
+      security:
+        - OAuth2: []
+    parameters: []
+  /author/list.xml:
+    get:
+      summary: authors.books
+      tags:
+        - author
+      responses: {}
+      operationId: get-author-list.xml
+      description: |-
+        # Paginate an author's books
+
+        Get an xml response with a paginated list of an authors books.
+      security:
+        - Developer Key: []
+      parameters:
+        - schema:
+            type: number
+          in: query
+          name: id
+          description: Goodreads Author id
+          required: true
+        - schema:
+            type: number
+            default: '1'
+          in: query
+          name: page
+          description: 1-N
+components:
+  schemas: {}
+  securitySchemes:
+    Developer Key:
+      name: key
+      type: apiKey
+      in: query
+    OAuth2:
+      type: oauth2
+      flows:
+        authorizationCode:
+          refreshUrl: ''
+          scopes: {}
+          tokenUrl: 'https://www.goodreads.com/oauth/access_token'
+          authorizationUrl: 'https://www.goodreads.com/oauth/authorize'
+      description: |-
+        https://www.goodreads.com/api/documentation#oauth
+        https://www.goodreads.com/api/oauth_example
