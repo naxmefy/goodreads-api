@@ -52,6 +52,25 @@ paths:
           in: query
           name: page
           description: 1-N
+  /author/show.xml:
+    get:
+      summary: author.show
+      tags:
+        - author
+      responses: {}
+      operationId: get-author-show.xml
+      description: |-
+        # Get info about an author by id
+
+        Get an xml response with info about an author.
+      security:
+        - Developer Key: []
+      parameters:
+        - schema:
+            type: string
+          in: query
+          name: id
+          description: Goodreads Author id
 components:
   schemas: {}
   securitySchemes:
